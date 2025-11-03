@@ -30,7 +30,6 @@ struct ContentView: View {
                 let url = try result.get()
                 selectedFolderURL = url
                 listfiles()
-		listfiles()
             } catch {
                 print("Fehler beim Auswählen", error.localizedDescription)
             }
