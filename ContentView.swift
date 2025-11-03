@@ -28,12 +28,37 @@ struct ContentView: View {
         .fileImporter(isPresented: $showImporter, allowedContentTypes: [.folder]) {
             result in do {
                 let url = try result.get()
-                print("Ausgewählt:", url)
                 selectedFolderURL = url
+                listfiles()
+		listfiles()
             } catch {
                 print("Fehler beim Auswählen", error.localizedDescription)
             }
         }
+    }
+    func listfiles() {
+      //URL definieren
+      //Auf URL zugreifen.
+        //Mit URL arbeiten
+        //Zugriff schließen.
+        guard let url = selectedFolderURL else {
+            return
+        }
+        
+       
+        guard url.startAccessingSecurityScopedResource() else {
+            return
+        }
+        defer {url.stopAccessingSecurityScopedResource()}
+        
+        do {
+            let files = try FileManager.default.contentsOfDirectory(atPath: url.path)
+            print("files: \(files)")
+        } catch {
+            
+            print("Keine Dateien vorhanden.")
+        }
+        
     }
 }
 
