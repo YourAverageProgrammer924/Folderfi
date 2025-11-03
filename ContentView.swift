@@ -37,10 +37,10 @@ struct ContentView: View {
         }
     }
     func listfiles() {
-      //URL definieren
-      //Auf URL zugreifen.
-        //Mit URL arbeiten
-        //Zugriff schließen.
+                //Define URL
+                //Access URL.
+                //Work with URL.
+                //Close access.
         guard let url = selectedFolderURL else {
             return
         }
