@@ -14,15 +14,18 @@ struct ContentView: View {
 	@State private var showImporter = false
 	@State private var selectedFolderURL: URL?
 	@State private var audioPlayer: AVAudioPlayer?
-	var fileManager = FileManager.default	
+    @State private var mp3files:[String] = []
+	var fileManager = FileManager.default
     
     var body: some View {
         VStack {
             Button("Ordner hinzufügen") {
                 showImporter = true
             }
-            Text("Ausgewählte URL: \(String(describing: selectedFolderURL?.absoluteString))")
-            //Show URL as Text in UI.
+            List{
+                ForEach(mp3files, id: \.self) { file in
+                    Text("File: \(file)")
+            }
         }
         .padding()
         .fileImporter(isPresented: $showImporter, allowedContentTypes: [.folder]) {
@@ -51,8 +54,8 @@ struct ContentView: View {
         defer {url.stopAccessingSecurityScopedResource()}
         
         do {
-            let files = try FileManager.default.contentsOfDirectory(atPath: url.path)
-            print("files: \(files)")
+            mp3files = try FileManager.default.contentsOfDirectory(atPath: url.path)
+            
         } catch {
             
             print("Keine Dateien vorhanden.")
